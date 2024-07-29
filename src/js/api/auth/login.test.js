@@ -1,3 +1,8 @@
+import { login } from "./login";
+import { save } from "../../storage/index.js";
+import { apiPath } from "../constants.js";
+import { headers } from "../headers.js";
+
 jest.mock("../../storage", () => ({
   save: jest.fn(),
 }));
@@ -17,11 +22,6 @@ global.fetch = jest.fn(() => {
     },
   });
 });
-
-import { login } from "./login";
-import { save } from "../../storage/index.js";
-import { apiPath } from "../constants.js";
-import { headers } from "../headers.js";
 
 describe("Login functionality", () => {
   beforeEach(function () {
