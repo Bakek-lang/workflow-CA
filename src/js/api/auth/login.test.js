@@ -25,9 +25,7 @@ import { headers } from "../headers.js";
 
 describe("Login functionality", () => {
   beforeEach(function () {
-    fetch.mockClear();
-    save.mockClear();
-    headers.mockClear();
+    jest.clearAllMocks();
   });
 
   it("should call fetch with the correct arguments", async () => {
@@ -41,14 +39,6 @@ describe("Login functionality", () => {
       body: JSON.stringify({ email, password }),
       headers: headers("application/json"),
     });
-  });
-
-  it("should save token and profile on successful login", async () => {
-    const email = "test@example.com";
-    const password = "password";
-
-    const result = await login(email, password);
-
     expect(save).toHaveBeenCalledWith("token", "fake-token");
     expect(save).toHaveBeenCalledWith("profile", { name: "John Doe" });
     expect(result).toEqual({ name: "John Doe" });
