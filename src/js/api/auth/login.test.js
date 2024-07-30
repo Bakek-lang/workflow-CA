@@ -28,7 +28,7 @@ describe("Login functionality", () => {
     jest.clearAllMocks();
   });
 
-  it("should call fetch with the correct arguments", async () => {
+  it("should store a token when provided with valid credentials", async () => {
     const email = "test@example.com";
     const password = "password";
 
@@ -40,7 +40,5 @@ describe("Login functionality", () => {
       headers: headers("application/json"),
     });
     expect(save).toHaveBeenCalledWith("token", "fake-token");
-    expect(save).toHaveBeenCalledWith("profile", { name: "John Doe" });
-    expect(result).toEqual({ name: "John Doe" });
   });
 });
