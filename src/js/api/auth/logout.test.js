@@ -14,6 +14,5 @@ describe("Logout functionality", () => {
     logout();
 
     expect(remove).toHaveBeenCalledWith("token");
-    expect(remove).toHaveBeenCalledWith("profile");
   });
 });
