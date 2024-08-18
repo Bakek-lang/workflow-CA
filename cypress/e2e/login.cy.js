@@ -7,7 +7,7 @@ describe("Login Functionality", () => {
   };
 
   const invalidCredentials = {
-    email: "invalid@stud.no",
+    email: "invalid@stud.noroff.no",
     password: "invalid",
   };
 
@@ -52,14 +52,20 @@ describe("Login Functionality", () => {
           message: "Invalid credentials",
         },
       },
-    );
+    ).as("loginFailed");
     cy.getByCy("login-button-modal").click();
     cy.wait(500);
     cy.getByCy("email-input").click();
     cy.getByCy("email-input").type(invalidCredentials.email);
     cy.getByCy("password-input").type(invalidCredentials.password);
     cy.getByCy("login-button").click();
+    cy.wait("@loginFailed");
 
+    cy.on("window:alert", () => {
+      expect(true).to.be.true;
+    });
+
+    cy.location("pathname").should("equal", "/");
     cy.getByCy("user-name-display").should("not.exist");
     cy.window().its("localStorage.token").should("not.exist");
   });
